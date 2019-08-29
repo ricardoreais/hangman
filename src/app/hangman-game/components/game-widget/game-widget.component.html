@@ -1,0 +1,6 @@
+<p>Goal: {{ word }}</p>
+<p>Current: {{ wordTemplate }}</p>
+
+
+<input #searchBox id="search-box" />
+<button (click)="guessLetter(searchBox.value)">Guess!</button>
