@@ -4,9 +4,8 @@
 <p>Incorrect guess count: {{ incorrectGuessCount }}</p>
 
 <input #searchBox id="search-box" />
-<button (click)="guessLetter(searchBox.value)">Guess!</button>
+<button (click)="guessLetter(searchBox.value)" [disabled]="gameState.gameOver">Guess!</button>
 
-<div *ngIf="word === wordGuess">
-    Victory
-    <button (click)="startGame()">Click here to restart!</button>
-</div>
+<div *ngIf="gameState.victory">Victory :)</div>
+<div *ngIf="gameState.lost">You lost :(</div>
+<button *ngIf="gameState.gameOver" (click)="startGame()">Click here to restart!</button>
