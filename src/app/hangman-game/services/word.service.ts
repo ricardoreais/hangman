@@ -6,7 +6,6 @@ import { Injectable } from '@angular/core';
 export class WordService {
   words = ['3dhubs', 'marvin', 'print', 'filament', 'order', 'layer'];
   emptyChar = '_ ';
-  correctLetters: string[] = [];
 
   constructor() {}
 
@@ -15,11 +14,11 @@ export class WordService {
   }
 
   // This could also be implemented with RegEx but it would be harder to read.
-  public guessLetter(word: string, letter?: string): string {
+  public guessLetter(word: string, letter?: string, correctLetters?: string[]): string {
     return word.toLowerCase().split('').map((l: string) =>  {
-      if (letter && l === letter.toLowerCase() || this.correctLetters.indexOf(l) > -1) {
-        this.correctLetters.push(l);
-        return l.toUpperCase();
+      if (letter && (l === letter.toLowerCase() || correctLetters.indexOf(l) > -1)) {
+        correctLetters.push(l);
+        return l;
       } else {
         return this.emptyChar;
       }

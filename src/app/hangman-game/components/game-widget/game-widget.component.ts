@@ -8,17 +8,33 @@ import { WordService } from '../../services/word.service';
 })
 export class GameWidgetComponent implements OnInit {
   word: string;
-  wordTemplate: string;
+  wordGuess: string;
+  correctGuessCount: number;
+  incorrectGuessCount: number;
+  correctLetters: string[];
 
   constructor(private wordService: WordService) {}
 
   ngOnInit() {
-    this.word = this.wordService.getRandomWord();
-    // Initially we try to guess the word without passing any guessed letter in order to get the word template.
-    this.wordTemplate = this.wordService.guessLetter(this.word);
+    this.startGame();
   }
 
   guessLetter(letter: string) {
-    this.wordTemplate = this.wordService.guessLetter(this.word, letter);
+    const previousGuess = this.wordGuess;
+    this.wordGuess = this.wordService.guessLetter(this.word, letter, this.correctLetters);
+    if (previousGuess === this.wordGuess) {
+      this.incorrectGuessCount++;
+    } else {
+      this.correctGuessCount++;
+    }
+  }
+
+  startGame(): void {
+    this.word = this.wordService.getRandomWord();
+    // Initially we try to guess the word without passing any guessed letter in order to get the word template.
+    this.wordGuess = this.wordService.guessLetter(this.word);
+    this.correctGuessCount = 0;
+    this.incorrectGuessCount = 0;
+    this.correctLetters = [];
   }
 }
