@@ -1,6 +1,12 @@
 <p>Goal: {{ word }}</p>
-<p>Current: {{ wordTemplate }}</p>
-
+<p>Current: {{ wordGuess }}</p>
+<p>Correct guess count: {{ correctGuessCount }}</p>
+<p>Incorrect guess count: {{ incorrectGuessCount }}</p>
 
 <input #searchBox id="search-box" />
 <button (click)="guessLetter(searchBox.value)">Guess!</button>
+
+<div *ngIf="word === wordGuess">
+    Victory
+    <button (click)="startGame()">Click here to restart!</button>
+</div>
