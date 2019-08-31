@@ -19,5 +19,5 @@
 <ng-template #gameOver>
     <div *ngIf="gameState.victory">{{ 'you_won' }}</div>
     <div *ngIf="gameState.lost">{{ 'you_lost' }}</div>
-    <button (click)="startGame()">{{ 'click_to_restart' }}</button>
+    <button mat-raised-button (click)="startGame()">{{ 'click_to_restart' }}</button>
 </ng-template>

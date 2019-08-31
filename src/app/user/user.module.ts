@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { ProfileComponent } from './components/profile/profile.component';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { ProfileComponent } from './components/profile/profile.component';
     UserRoutingModule,
     SharedModule,
     MatInputModule,
+    MatButtonModule,
     FormsModule,
     ReactiveFormsModule
   ]
