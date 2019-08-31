@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { AuthService } from '../../../shared/services/auth.service';
+import { UserService } from '../../../shared/services/user.service';
 import { User } from '../../../shared/models/user.model';
 
 @Component({
@@ -9,14 +9,14 @@ import { User } from '../../../shared/models/user.model';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-  username = new FormControl('');
+  usernameControl = new FormControl('');
 
-  constructor(private authService: AuthService) {}
+  constructor(private userService: UserService) {}
 
   ngOnInit() {}
 
   public register(): void {
-    const newUser = new User(this.username.value);
-    this.authService.registerUser(newUser);
+    const newUser = new User(this.usernameControl.value);
+    this.userService.register(newUser);
   }
 }

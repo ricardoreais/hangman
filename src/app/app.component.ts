@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from './shared/services/auth.service';
+import { UserService } from './shared/services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -8,12 +8,8 @@ import { AuthService } from './shared/services/auth.service';
 })
 export class AppComponent implements OnInit {
   title = 'hangman';
-  isLogged = false;
 
-  constructor(private authService: AuthService) {
-  }
+  constructor(private userService: UserService) {}
 
-  ngOnInit(): void {
-    this.isLogged = this.authService.IsLogged;
-  }
+  ngOnInit(): void {}
 }
