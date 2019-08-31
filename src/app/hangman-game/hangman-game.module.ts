@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { HangmanGameRoutingModule } from './hangman-game-routing.module';
 import { GameWidgetComponent } from './components/game-widget/game-widget.component';
+import { UserModule } from '../user/user.module';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { GameWidgetComponent } from './components/game-widget/game-widget.compon
   ],
   imports: [
     CommonModule,
-    HangmanGameRoutingModule
+    HangmanGameRoutingModule,
+    UserModule
   ]
 })
 export class HangmanGameModule { }

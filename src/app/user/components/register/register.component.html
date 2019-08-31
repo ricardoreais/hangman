@@ -1,0 +1,7 @@
+<h1>Please enter your username:</h1>
+<form class="example-form">
+    <mat-form-field class="example-full-width">
+        <input matInput type="text" placeholder="Username" [formControl]="username">
+    </mat-form-field>
+</form>
+<button (click)="register()" routerLink="/game">Register</button>
