@@ -5,7 +5,7 @@ import { AuthGuard } from './shared/guards/auth.guard';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'register',
+    redirectTo: 'user',
     pathMatch: 'full'
   },
   {
@@ -14,8 +14,8 @@ const routes: Routes = [
     loadChildren: () => import('./hangman-game/hangman-game.module').then(mod => mod.HangmanGameModule),
   },
   {
-    path: 'register',
-    loadChildren: () => import('./authentication/authentication.module').then(mod => mod.AuthenticationModule),
+    path: 'user',
+    loadChildren: () => import('./user/user.module').then(mod => mod.UserModule),
   }
 ];
 

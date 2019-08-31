@@ -1,0 +1,7 @@
+<h1>{{ 'please_enter_your_username' }}</h1>
+<form>
+    <mat-form-field>
+        <input matInput type="text" placeholder="{{ 'username' }}" [formControl]="usernameControl">
+    </mat-form-field>
+</form>
+<button (click)="register()" routerLink="/game">{{ 'register' }}</button>

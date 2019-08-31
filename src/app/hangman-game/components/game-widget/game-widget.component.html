@@ -1,15 +1,23 @@
-<h1>Welcome {{ user.name }}</h1>
-<h2>Highscore: {{ user.highscore }}</h2>
-
+<h1>{{ 'welcome' }} {{ user.name }}</h1>
+<h2>{{'highscore'}} {{ user.highscore }}</h2>
+<h2>{{'current_highscore'}} {{ currentHighscore }}</h2>
 
 <p>Goal: {{ word }}</p>
 <p>Current: {{ wordGuess }}</p>
 <p>Correct guess count: {{ correctGuessCount }}</p>
 <p>Incorrect guess count: {{ incorrectGuessCount }}</p>
+<div *ngIf="!gameState.gameOver; else gameOver">
+    <mat-form-field>
+        <input matInput type="text" placeholder="enter_your_letter_guess" [formControl]="letterGuessControl" maxlength="1">
+        <mat-error *ngIf="letterGuessControl.invalid">{{ 'invalid_guess' }}</mat-error>
+    </mat-form-field>
+    <div>
+        <button mat-raised-button (click)="guessLetter()" [disabled]="letterGuessControl.invalid || gameState.gameOver">{{ 'guess' }}</button>
+    </div>
+</div>
 
-<input #searchBox id="search-box" />
-<button (click)="guessLetter(searchBox.value)" [disabled]="gameState.gameOver">Guess!</button>
-
-<div *ngIf="gameState.victory">Victory :)</div>
-<div *ngIf="gameState.lost">You lost :(</div>
-<button *ngIf="gameState.gameOver" (click)="startGame()">Click here to restart!</button>
+<ng-template #gameOver>
+    <div *ngIf="gameState.victory">{{ 'you_won' }}</div>
+    <div *ngIf="gameState.lost">{{ 'you_lost' }}</div>
+    <button (click)="startGame()">{{ 'click_to_restart' }}</button>
+</ng-template>
