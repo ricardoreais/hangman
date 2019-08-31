@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { WordService } from '../../services/word.service';
 import { environment } from 'src/environments/environment';
 import { GameState } from '../../models/game-state.model';
+import { AuthService } from 'src/app/user/services/auth.service';
+import { User } from 'src/app/user/models/user.model';
 
 @Component({
   selector: 'app-game-widget',
@@ -16,10 +18,12 @@ export class GameWidgetComponent implements OnInit {
   correctLetters: string[];
   maxIncorrectGuessCount = environment.maxIncorrectGuessCount;
   gameState: GameState;
+  user: User;
 
-  constructor(private wordService: WordService) {}
+  constructor(private wordService: WordService, private authService: AuthService) {}
 
   ngOnInit() {
+    this.user = this.authService.currentUser;
     this.startGame();
   }
 
@@ -33,6 +37,9 @@ export class GameWidgetComponent implements OnInit {
     }
     // The user wins the game if his word guess is the same as the expected word.
     this.gameState.victory = this.word === this.wordGuess;
+    if (this.gameState.victory) {
+      this.user.highscore++;
+    }
     // The user loses the game if he has a number of incorrect guesses equal or bigger than the maximum of incorrect guesses.
     this.gameState.lost = this.incorrectGuessCount >= this.maxIncorrectGuessCount;
   }

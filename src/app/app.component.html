@@ -1,3 +1,17 @@
-
-<button routerLink="/game">Load hangman game module</button>
-<router-outlet></router-outlet>
+<mat-sidenav-container class="example-container">
+    <mat-sidenav mode="side" opened fxFlex fxLayout="column">
+        <mat-nav-list fxFlex fxFill>
+            <a mat-list-item routerLink='/'>
+                <mat-icon mat-list-icon>house</mat-icon>
+                <span mat-line>Home</span>
+            </a>
+            <a mat-list-item routerLink='/game'>
+                <mat-icon mat-list-icon>list</mat-icon>
+                <span mat-line>Game</span>
+            </a>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
