@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { WordService } from '../../services/word.service';
 import { environment } from 'src/environments/environment';
 import { GameState } from '../../models/game-state.model';
-import { AuthService } from 'src/app/user/services/auth.service';
-import { User } from 'src/app/user/models/user.model';
+import { AuthService } from 'src/app/shared/services/auth.service';
+import { User } from 'src/app/shared/models/user.model';
 
 @Component({
   selector: 'app-game-widget',

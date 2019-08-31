@@ -5,7 +5,7 @@
                 <mat-icon mat-list-icon>house</mat-icon>
                 <span mat-line>Home</span>
             </a>
-            <a mat-list-item routerLink='/game'>
+            <a mat-list-item routerLink='/game' *ngIf="authService.IsLogged">
                 <mat-icon mat-list-icon>list</mat-icon>
                 <span mat-line>Game</span>
             </a>
