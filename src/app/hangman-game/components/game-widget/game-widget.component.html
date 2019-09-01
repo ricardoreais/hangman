@@ -1,26 +1,29 @@
-<div fxLayout="column">
-    <app-profile></app-profile>
-    <h2>{{ 'current_highscore' | translate }}{{ currentHighscore }}</h2>
-    <p>Goal: {{ word }}</p>
-    <h1>{{ wordGuess }}</h1>
-    <h3>{{ 'correct_guesses' | translate }}{{ correctGuessCount }}</h3>
-    <h3>{{ 'incorrect_guesses' | translate }}{{ incorrectGuessCount }}/{{ maxIncorrectGuessCount }}</h3>
-    <div fxLayout="column" *ngIf="!gameState.gameOver; else gameOver">
-        <mat-form-field fxFlex>
-            <input matInput type="text" placeholder="{{ 'enter_your_letter_guess' | translate }}" [formControl]="letterGuessControl" maxlength="1" autocomplete="off">
-            <mat-error *ngIf="letterGuessControl.invalid">{{ 'invalid_guess' | translate }}</mat-error>
-        </mat-form-field>
-        <div fxFlex fxLayoutGap="10px">
-            <button mat-raised-button (click)="guessLetter()" [disabled]="letterGuessControl.invalid || gameState.gameOver">{{ 'guess' | translate }}</button>
+<div fxLayout="column" *ngIf="hangman$ | async as hangman; else loading">
+    <h2>{{ 'current_highscore' | translate }}{{ currentHighscore$ | async }}</h2>
+    <h3>{{ 'correct_guesses' | translate }}{{ hangman.correctLetters.length }}</h3>
+    <h3>{{ 'incorrect_guesses' | translate }}{{ hangman.incorrectLetters.length }}/{{ maxIncorrectGuessCount }}</h3>
+    <p>Goal: {{ hangman.word }}</p>
+    <div class="game">
+        <h1>{{ hangman.wordGuess }}</h1>
+        <div fxLayout="column" *ngIf="!hangman.gameState.gameOver; else gameOver">
+            <mat-form-field fxFlex>
+                <input matInput type="text" placeholder="{{ 'enter_your_letter_guess' | translate }}" [formControl]="letterGuessControl" maxlength="1" autocomplete="off">
+                <mat-error *ngIf="letterGuessControl.invalid">{{ 'invalid_guess' | translate }}</mat-error>
+            </mat-form-field>
+            <div fxFlex fxLayoutGap="10px">
+                <button mat-raised-button (click)="guess()" [disabled]="letterGuessControl.invalid || hangman.gameState.gameOver">{{ 'guess' | translate }}</button>
+            </div>
         </div>
+        <ng-template #gameOver>
+            <h1 *ngIf="hangman.gameState.victory">{{ 'you_won' | translate }}</h1>
+            <h1 *ngIf="hangman.gameState.lost">{{ 'you_lost' | translate }}</h1>
+            <button mat-raised-button (click)="startGame()">
+                {{ 'click_to_restart' | translate }}
+                <mat-icon>refresh</mat-icon>
+            </button>
+        </ng-template>
     </div>
-
-    <ng-template #gameOver>
-        <h1 *ngIf="gameState.victory">{{ 'you_won' | translate }}</h1>
-        <h1 *ngIf="gameState.lost">{{ 'you_lost' | translate }}</h1>
-        <button mat-raised-button (click)="startGame()">
-            {{ 'click_to_restart' | translate }}
-            <mat-icon>refresh</mat-icon>
-        </button>
-    </ng-template>
 </div>
+<ng-template #loading>
+    <h1>{{ 'loading' | translate }}</h1>
+</ng-template>
