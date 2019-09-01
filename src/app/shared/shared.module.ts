@@ -35,7 +35,9 @@ import { ProfileComponent } from './components/profile/profile.component';
     MatButtonModule,
     MatIconModule,
     MatSidenavModule,
-    MatListModule
+    MatListModule,
+    // Components.
+    ProfileComponent
   ]
 })
 export class SharedModule { }

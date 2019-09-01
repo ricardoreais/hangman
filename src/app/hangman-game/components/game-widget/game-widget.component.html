@@ -1,11 +1,10 @@
-<h1>{{ 'welcome' | translate }}{{ user.name }}</h1>
-<h2>{{ 'highscore' | translate }}{{ user.highscore }}</h2>
+<app-profile></app-profile>
 <h2>{{ 'current_highscore' | translate }}{{ currentHighscore }}</h2>
 
 <p>Goal: {{ word }}</p>
 <h1>Current: {{ wordGuess }}</h1>
-<p>Correct guess count: {{ correctGuessCount }}</p>
-<p>Incorrect guess count: {{ incorrectGuessCount }} / {{ maxIncorrectGuessCount }}</p>
+<p>{{ 'correct_guesses' | translate }}{{ correctGuessCount }}</p>
+<p>{{ 'incorrect_guesses' | translate }}{{ incorrectGuessCount }}/{{ maxIncorrectGuessCount }}</p>
 <div *ngIf="!gameState.gameOver; else gameOver">
     <mat-form-field>
         <input matInput type="text" placeholder="{{ 'enter_your_letter_guess' | translate }}" [formControl]="letterGuessControl" maxlength="1"  autocomplete="off">

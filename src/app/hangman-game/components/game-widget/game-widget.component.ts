@@ -5,7 +5,6 @@ import { GameState } from '../../models/game-state.model';
 import { UserService } from 'src/app/shared/services/user.service';
 import { User } from 'src/app/shared/models/user.model';
 import { FormControl, Validators } from '@angular/forms';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-game-widget',
@@ -24,7 +23,7 @@ export class GameWidgetComponent implements OnInit {
   user: User;
   currentHighscore = 0;
 
-  constructor(private wordService: WordService, private userService: UserService, private readonly translate: TranslateService) {}
+  constructor(private wordService: WordService, private userService: UserService) {}
 
   ngOnInit() {
     this.user = this.userService.CurrentUser;

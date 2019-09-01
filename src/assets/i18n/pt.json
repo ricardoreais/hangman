@@ -8,5 +8,11 @@
 	"invalid_guess": "A sua tentativa não pode ser vazia!",
 	"guess": "Tentar!",
 	"you_won": "Parabéns, acertou na palavra!",
-	"click_to_restart": "Jogar novamente"
+	"you_lost": "Perdeu :( boa sorte na próxima",
+	"click_to_restart": "Jogar novamente",
+	"please_enter_your_username": "Por favor introduza o nome do seu utilizador:",
+	"username": "Nome",
+	"register": "Começar um novo jogo",
+	"correct_guesses": "Tentativas corretas: ",
+	"incorrect_guesses": "Tentativas incorretas: "
 }
