@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { WordService } from './word.service';
 import { Hangman } from '../models/hangman.model';
-import { Subject, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { UserService } from 'src/app/shared/services/user.service';
 
 @Injectable({
