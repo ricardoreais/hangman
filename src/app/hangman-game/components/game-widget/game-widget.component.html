@@ -11,7 +11,7 @@
             <mat-error *ngIf="letterGuessControl.invalid">{{ 'invalid_guess' | translate }}</mat-error>
         </mat-form-field>
         <div fxFlex fxLayoutGap="10px">
-            <button mat-raised-button (click)="guessLetter()" [disabled]="letterGuessControl.invalid || gameState.gameOver">{{ 'guess' | translate }}</button>
+            <button mat-raised-button (click)="guess()" [disabled]="letterGuessControl.invalid || gameState.gameOver">{{ 'guess' | translate }}</button>
         </div>
     </div>
 

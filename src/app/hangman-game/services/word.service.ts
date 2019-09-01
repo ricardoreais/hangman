@@ -5,8 +5,8 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class WordService {
-  emptyChar = '_ ';
-
+  emptyChar = environment.emptyChar;
+  
   constructor() {}
 
   public getRandomWord(): string {
@@ -15,18 +15,30 @@ export class WordService {
   }
 
   // This could also be implemented with RegEx but it would be harder to read.
-  public guessLetter(word: string, letter?: string, correctLetters?: string[]): string {
-    return word
-      .toLowerCase()
-      .split('')
-      .map((l: string) => {
-        if (letter && (l === letter.toLowerCase() || correctLetters.indexOf(l) > -1)) {
-          correctLetters.push(l);
-          return l;
-        } else {
-          return this.emptyChar;
-        }
-      })
-      .join('');
+  public guess(word: string, letterGuess?: string, correctLetters?: string[]): string {
+    const wordLetters = word.toLowerCase().split('');
+    let wordGuess = '';
+    let hasRemainingLetters = false;
+
+    for (let i = 0; i < wordLetters.length; i++) {
+      const wordLetter = wordLetters[i];
+      if (letterGuess && (wordLetter === letterGuess.toLowerCase() || correctLetters.indexOf(wordLetter) > -1)) {
+        correctLetters.push(wordLetter);
+        wordGuess += wordLetter;
+      } else {
+        hasRemainingLetters = true;
+        wordGuess += this.emptyChar;
+      }
+      // If it is not the last character add a space between each letter.
+      if (i !== wordLetters.length) {
+        wordGuess += ' ';
+      }
+    }
+
+    if (!hasRemainingLetters) {
+      return word;
+    }
+
+    return wordGuess;
   }
 }

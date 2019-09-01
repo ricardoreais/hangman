@@ -30,10 +30,11 @@ export class GameWidgetComponent implements OnInit {
     this.startGame();
   }
 
-  public guessLetter() {
-    const letter = this.letterGuessControl.value;
+  public guess() {
+    const letterGuess = this.letterGuessControl.value;
     const previousGuess = this.wordGuess;
-    this.wordGuess = this.wordService.guessLetter(this.word, letter, this.correctLetters);
+    this.wordGuess = this.wordService.guess(this.word, letterGuess, this.correctLetters);
+    // If the word guess hasn't changed we know it was and incorrect guess.
     if (previousGuess === this.wordGuess) {
       this.incorrectGuessCount++;
     } else {
@@ -61,7 +62,7 @@ export class GameWidgetComponent implements OnInit {
   public startGame(): void {
     this.word = this.wordService.getRandomWord();
     // Initially we try to guess the word without passing any guessed letter in order to get the word template.
-    this.wordGuess = this.wordService.guessLetter(this.word);
+    this.wordGuess = this.wordService.guess(this.word);
     this.correctGuessCount = 0;
     this.incorrectGuessCount = 0;
     this.correctLetters = [];
