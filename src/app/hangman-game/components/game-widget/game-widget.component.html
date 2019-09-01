@@ -1,5 +1,5 @@
-<div fxLayout="column">
-    <h2>{{ 'current_highscore' | translate }}{{ currentHighscore }}</h2>
+<div fxLayout="column" *ngIf="hangman$ | async as hangman; else loading">
+    <h2>{{ 'current_highscore' | translate }}{{ currentHighscore$ | async }}</h2>
     <h3>{{ 'correct_guesses' | translate }}{{ hangman.correctLetters.length }}</h3>
     <h3>{{ 'incorrect_guesses' | translate }}{{ hangman.incorrectLetters.length }}/{{ maxIncorrectGuessCount }}</h3>
     <p>Goal: {{ hangman.word }}</p>
@@ -14,7 +14,7 @@
                 <button mat-raised-button (click)="guess()" [disabled]="letterGuessControl.invalid || hangman.gameState.gameOver">{{ 'guess' | translate }}</button>
             </div>
         </div>
-        <ng-template fxFlex #gameOver>
+        <ng-template #gameOver>
             <h1 *ngIf="hangman.gameState.victory">{{ 'you_won' | translate }}</h1>
             <h1 *ngIf="hangman.gameState.lost">{{ 'you_lost' | translate }}</h1>
             <button mat-raised-button (click)="startGame()">
@@ -23,5 +23,7 @@
             </button>
         </ng-template>
     </div>
-
 </div>
+<ng-template #loading>
+    <h1>{{ 'loading' | translate }}</h1>
+</ng-template>

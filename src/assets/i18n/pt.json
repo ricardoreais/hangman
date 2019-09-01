@@ -14,5 +14,6 @@
 	"username": "Nome",
 	"register": "Começar um novo jogo",
 	"correct_guesses": "Tentativas corretas: ",
-	"incorrect_guesses": "Tentativas incorretas: "
+	"incorrect_guesses": "Tentativas incorretas: ",
+	"loading": "A carregar..."
 }

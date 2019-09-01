@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { WordService } from './word.service';
 import { Hangman } from '../models/hangman.model';
-import { Subject } from 'rxjs';
+import { Subject, BehaviorSubject } from 'rxjs';
+import { UserService } from 'src/app/shared/services/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,10 +11,12 @@ import { Subject } from 'rxjs';
 export class GameService {
   emptyChar = environment.emptyChar;
   maxIncorrectGuessCount = environment.maxIncorrectGuessCount;
-  hangman$ = new Subject<Hangman>();
+  hangman$ = new BehaviorSubject<Hangman>(undefined);
+  currentHighscore$ = new BehaviorSubject<number>(0);
+  private currentHighscore = 0;
   private hangman: Hangman;
 
-  constructor(private readonly wordService: WordService) {}
+  constructor(private readonly wordService: WordService, private userService: UserService) {}
 
   public startGame(): void {
     const randomWord = this.wordService.getRandomWord();
@@ -64,16 +67,37 @@ export class GameService {
     }
 
     this.updateGameState();
+    this.updateHighScore();
   }
 
-  public updateGameState(): void {
+  private updateGameState(): void {
     const gameState = this.hangman.gameState;
+
     // The user wins the game if his word guess is the same as the expected word.
     gameState.victory = this.hangman.word === this.hangman.wordGuess;
-
     // The user loses the game if he has a number of incorrect guesses equal or bigger than the maximum of incorrect guesses.
     gameState.lost = this.hangman.incorrectLetters.length >= this.maxIncorrectGuessCount;
 
     this.hangman$.next(this.hangman);
+  }
+
+  private updateHighScore(): void {
+    const gameState = this.hangman.gameState;
+
+    if (gameState.victory) {
+      this.currentHighscore++;
+      // If the currentHighscore is above the user highscore update the user highscore.
+      const currentUser = this.userService.CurrentUser;
+      if (this.currentHighscore > currentUser.highscore) {
+        currentUser.highscore = this.currentHighscore;
+        this.userService.update(currentUser);
+      }
+    }
+
+    // If the user loses a game reset the current highscore.
+    if (gameState.lost) {
+      this.currentHighscore = 0;
+    }
+    this.currentHighscore$.next(this.currentHighscore);
   }
 }

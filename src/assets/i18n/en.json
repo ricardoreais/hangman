@@ -14,5 +14,6 @@
 	"username": "Username",
 	"register": "Start a new game",
 	"correct_guesses": "Correct guesses: ",
-	"incorrect_guesses": "Incorrect guesses: "
+	"incorrect_guesses": "Incorrect guesses: ",
+	"loading": "Loading..."
 }
