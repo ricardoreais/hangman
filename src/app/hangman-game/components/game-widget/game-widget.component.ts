@@ -27,7 +27,6 @@ export class GameWidgetComponent implements OnInit {
   constructor(private wordService: WordService, private userService: UserService, private readonly translate: TranslateService) {}
 
   ngOnInit() {
-    this.translate.use(environment.defaultLanguage);
     this.user = this.userService.CurrentUser;
     this.startGame();
   }

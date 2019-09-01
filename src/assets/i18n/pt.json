@@ -1,4 +1,12 @@
 ﻿{
 	"home": "Inicio",
-	"game": "Jogo da forca"
+	"game": "Jogo da forca",
+	"welcome": "Bem-vindo ",
+	"highscore": "Pontuação máxima: ",
+	"current_highscore": "Pontuação atual: ",
+	"enter_your_letter_guess": "Introduza uma letra...",
+	"invalid_guess": "A sua tentativa não pode ser vazia!",
+	"guess": "Tentar!",
+	"you_won": "Parabéns, acertou na palavra!",
+	"click_to_restart": "Jogar novamente"
 }
