@@ -1,23 +1,26 @@
-<h1>{{ 'welcome' }} {{ user.name }}</h1>
-<h2>{{'highscore'}} {{ user.highscore }}</h2>
-<h2>{{'current_highscore'}} {{ currentHighscore }}</h2>
+<h1>{{ 'welcome' | translate }}{{ user.name }}</h1>
+<h2>{{ 'highscore' | translate }}{{ user.highscore }}</h2>
+<h2>{{ 'current_highscore' | translate }}{{ currentHighscore }}</h2>
 
 <p>Goal: {{ word }}</p>
-<p>Current: {{ wordGuess }}</p>
+<h1>Current: {{ wordGuess }}</h1>
 <p>Correct guess count: {{ correctGuessCount }}</p>
-<p>Incorrect guess count: {{ incorrectGuessCount }}</p>
+<p>Incorrect guess count: {{ incorrectGuessCount }} / {{ maxIncorrectGuessCount }}</p>
 <div *ngIf="!gameState.gameOver; else gameOver">
     <mat-form-field>
-        <input matInput type="text" placeholder="enter_your_letter_guess" [formControl]="letterGuessControl" maxlength="1">
-        <mat-error *ngIf="letterGuessControl.invalid">{{ 'invalid_guess' }}</mat-error>
+        <input matInput type="text" placeholder="{{ 'enter_your_letter_guess' | translate }}" [formControl]="letterGuessControl" maxlength="1"  autocomplete="off">
+        <mat-error *ngIf="letterGuessControl.invalid">{{ 'invalid_guess' | translate }}</mat-error>
     </mat-form-field>
     <div>
-        <button mat-raised-button (click)="guessLetter()" [disabled]="letterGuessControl.invalid || gameState.gameOver">{{ 'guess' }}</button>
+        <button mat-raised-button (click)="guessLetter()" [disabled]="letterGuessControl.invalid || gameState.gameOver">{{ 'guess' | translate }}</button>
     </div>
 </div>
 
 <ng-template #gameOver>
-    <div *ngIf="gameState.victory">{{ 'you_won' }}</div>
-    <div *ngIf="gameState.lost">{{ 'you_lost' }}</div>
-    <button mat-raised-button (click)="startGame()">{{ 'click_to_restart' }}</button>
+    <div *ngIf="gameState.victory">{{ 'you_won' | translate }}</div>
+    <div *ngIf="gameState.lost">{{ 'you_lost' | translate }}</div>
+    <button mat-raised-button (click)="startGame()">
+        {{ 'click_to_restart' | translate }}
+        <mat-icon>refresh</mat-icon>
+    </button>
 </ng-template>
