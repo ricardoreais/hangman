@@ -12,13 +12,13 @@
                 </a>
             </mat-nav-list>
             <div fxFlex="8" fxLayout="row" fxLayoutAlign="center center">
-                <a fxFlex fxLayoutAlign="center" [routerLink]="" (click)="changeLanguage('en')">EN</a>
-                <a fxFlex fxLayoutAlign="center" [routerLink]="" (click)="changeLanguage('pt')">PT</a>
+                <a mat-button fxFlex fxLayoutAlign="center" [routerLink]="" (click)="changeLanguage('en')">EN</a>
+                <a mat-button fxFlex fxLayoutAlign="center" [routerLink]="" (click)="changeLanguage('pt')">PT</a>
             </div>
         </div>
     </mat-sidenav>
     <mat-sidenav-content>
-        <div fxLayoutAlign="center">
+        <div fxFlex fxLayout="column" fxLayoutAlign="center center">
             <router-outlet></router-outlet>
         </div>
     </mat-sidenav-content>
