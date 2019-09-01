@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   maxIncorrectGuessCount: 5,
-  words: ['3dhubs', 'marvin', 'print', 'filament', 'order', 'layer']
+  words: ['3dhubs', 'marvin', 'print', 'filament', 'order', 'layer'],
+  defaultLanguage: 'pt'
 };
 
 /*

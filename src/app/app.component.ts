@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from './shared/services/user.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,21 @@ import { UserService } from './shared/services/user.service';
 export class AppComponent implements OnInit {
   title = 'hangman';
 
-  constructor(private userService: UserService) {}
+  constructor(private readonly translate: TranslateService, private readonly userService: UserService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const language = this.userService.getLanguage();
+    this.changeLanguage(language);
+  }
+
+  changeLanguage(language: string): void {
+    const user = this.userService.CurrentUser;
+    // If there is an active user update his selected language.
+    if (user) {
+      user.language = language;
+      this.userService.update(user);
+    }
+    this.translate.use(language);
+    this.translate.setDefaultLang(language);
+  }
 }
