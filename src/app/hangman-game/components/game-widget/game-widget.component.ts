@@ -27,20 +27,21 @@ export class GameWidgetComponent implements OnInit {
 
   public guess() {
     const letterGuess = this.letterGuessControl.value;
-    this.hangman.wordGuess = this.gameService.guess(letterGuess);
-    this.updateGameState();
+    this.gameService.guess(letterGuess);
     // Reset the user input.
     this.letterGuessControl.reset();
   }
 
   public startGame(): void {
-    this.hangman = this.gameService.startGame();
+    this.gameService.hangman$.subscribe((hangman: Hangman) => {
+      this.hangman = hangman;
+      this.updateGameState();
+    });
+    this.gameService.startGame();
   }
 
   public updateGameState(): void {
-    let gameState = this.hangman.gameState;
-    gameState = this.gameService.updateGameState();
-
+    const gameState = this.hangman.gameState;
     if (gameState.victory) {
       this.currentHighscore++;
       // If the currentHighscore is above the user highscore update the user highscore.

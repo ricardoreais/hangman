@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { WordService } from './word.service';
 import { Hangman } from '../models/hangman.model';
-import { GameState } from '../models/game-state.model';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,19 +10,19 @@ import { GameState } from '../models/game-state.model';
 export class GameService {
   emptyChar = environment.emptyChar;
   maxIncorrectGuessCount = environment.maxIncorrectGuessCount;
-  hangman: Hangman;
+  hangman$ = new Subject<Hangman>();
+  private hangman: Hangman;
 
   constructor(private readonly wordService: WordService) {}
 
-  public startGame(): Hangman {
+  public startGame(): void {
     const randomWord = this.wordService.getRandomWord();
     this.hangman = new Hangman(randomWord);
     // Initially we try to guess the word without passing any guessed letter in order to get the word template.
-    this.hangman.wordGuess = this.guess();
-    return this.hangman;
+    this.guess();
   }
 
-  public guess(letterGuess?: string): string {
+  public guess(letterGuess?: string): void {
     const wordLetters = this.hangman.word.toLowerCase().split('');
     let wordGuess = '';
     let isCorrectGuess = false;
@@ -63,16 +63,17 @@ export class GameService {
       this.hangman.wordGuess = wordGuess;
     }
 
-    return this.hangman.wordGuess;
+    this.updateGameState();
   }
 
-  public updateGameState(): GameState {
+  public updateGameState(): void {
     const gameState = this.hangman.gameState;
     // The user wins the game if his word guess is the same as the expected word.
     gameState.victory = this.hangman.word === this.hangman.wordGuess;
 
     // The user loses the game if he has a number of incorrect guesses equal or bigger than the maximum of incorrect guesses.
     gameState.lost = this.hangman.incorrectLetters.length >= this.maxIncorrectGuessCount;
-    return gameState;
+
+    this.hangman$.next(this.hangman);
   }
 }
