@@ -10,7 +10,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class AppComponent implements OnInit {
   title = 'hangman';
 
-  constructor(private readonly translate: TranslateService, private readonly userService: UserService) {}
+  constructor(private readonly translate: TranslateService, public readonly userService: UserService) {}
 
   ngOnInit(): void {
     const language = this.userService.getLanguage();

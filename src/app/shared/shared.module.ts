@@ -10,11 +10,14 @@ import { MatListModule } from '@angular/material/list';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { HttpClientModule } from '@angular/common/http';
 import { TranslateModule } from '@ngx-translate/core';
+import { ErrorComponent } from './components/error/error.component';
 
 // The SharedModule should not have providers. Since lazy loaded modules use a different injector from the rest of the application.
 // Then we could end up with 2 different instances of the same Service.
 @NgModule({
-  declarations: [],
+  declarations: [
+    ErrorComponent
+  ],
   imports: [
     CommonModule,
     TranslateModule
@@ -32,7 +35,9 @@ import { TranslateModule } from '@ngx-translate/core';
     MatButtonModule,
     MatIconModule,
     MatSidenavModule,
-    MatListModule
+    MatListModule,
+    // Components.
+    ErrorComponent
   ]
 })
 export class SharedModule { }
