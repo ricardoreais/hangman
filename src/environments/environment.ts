@@ -3,7 +3,11 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  maxIncorrectGuessCount: 5,
+  words: ['3dhubs', 'marvin', 'print', 'filament', 'order', 'layer'],
+  defaultLanguage: 'pt',
+  emptyChar: '_'
 };
 
 /*

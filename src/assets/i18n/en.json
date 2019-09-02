@@ -1,0 +1,20 @@
+{
+	"home": "Home",
+	"game": "Hangman game",
+	"welcome": "Welcome ",
+	"highscore": "Highscore: ",
+	"current_highscore": "Current highscore: ",
+	"enter_your_letter_guess": "Please enter a letter...",
+	"invalid_guess": "Your guess can't be empty!",
+	"guess": "Guess!",
+	"you_won": "Congratulations, you've guessed the word!",
+	"you_lost": "You've lost :( better luck next time",
+	"click_to_restart": "Play again",
+	"please_enter_your_username": "Please enter your username below:",
+	"username": "Username",
+	"register": "Start a new game",
+	"correct_guesses": "Correct guesses: ",
+	"incorrect_guesses": "Incorrect guesses: ",
+	"loading": "Loading...",
+	"already_used_letter": "You've already used that letter!"
+}
