@@ -1,26 +1,27 @@
-<mat-sidenav-container fxLayout="row" fxLayoutAlign="stretch">
-    <mat-sidenav mode="side" opened>
-        <div fxFlex fxLayout="column" fxLayoutAlign="space-between">
-            <img fxFlex="15" src="assets/hangman-logo.svg">
+<mat-sidenav-container>
+    <mat-sidenav mode="side" opened fxFlex.xs="25">
+        <div fxFlex fxLayout="column">
+            <div fxFlex="15">
+                <img fxFlex fxHide.xs="true" src="assets/hangman-logo.svg">
+                <img fxFlex="100" fxHide.gt-xs="true" src="assets/hangman-logo-xs.svg">
+            </div>
             <mat-nav-list fxFlex>
-                <a mat-list-item routerLink="/user">
+                <a mat-list-item routerLink="/user" fxLayoutAlign.xs="center center">
                     <mat-icon mat-list-icon>house</mat-icon>
-                    <span mat-line>{{ 'home' | translate }}</span>
+                    <span mat-line fxHide.xs="true">{{ 'home' | translate }}</span>
                 </a>
-                <a mat-list-item routerLink="/game" *ngIf="userService.IsLogged">
+                <a mat-list-item routerLink="/game" *ngIf="userService.IsLogged" fxLayoutAlign.xs="center center">
                     <mat-icon mat-list-icon>list</mat-icon>
-                    <span mat-line>{{ 'game' | translate }}</span>
+                    <span mat-line fxHide.xs="true">{{ 'game' | translate }}</span>
                 </a>
             </mat-nav-list>
-            <div fxFlex="8" fxLayout="row" fxLayoutAlign="center center">
-                <a mat-button fxFlex fxLayoutAlign="center" [routerLink]="" (click)="changeLanguage('en')">EN</a>
-                <a mat-button fxFlex fxLayoutAlign="center" [routerLink]="" (click)="changeLanguage('pt')">PT</a>
+            <div fxFlex="8" fxFlex.xs="15" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center center">
+                <a mat-button fxFlex [routerLink]="" (click)="changeLanguage('en')">EN</a>
+                <a mat-button fxFlex [routerLink]="" (click)="changeLanguage('pt')">PT</a>
             </div>
         </div>
     </mat-sidenav>
-    <mat-sidenav-content>
-        <div fxFlex fxLayout="column" fxLayoutAlign="center center">
-            <router-outlet></router-outlet>
-        </div>
+    <mat-sidenav-content fxFlex fxLayout="column" fxLayoutAlign="center center">
+        <router-outlet></router-outlet>
     </mat-sidenav-content>
 </mat-sidenav-container>

@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormControl, Validators, AbstractControl, ValidatorFn } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { GameService } from '../../services/game.service';
 import { Hangman } from '../../models/hangman.model';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { alreadyUsedValidator } from '../../validators/already-used.validator';
 
 
 @Component({
@@ -55,15 +56,4 @@ export class GameWidgetComponent implements OnInit, OnDestroy {
     this.gameService.startGame();
     this.maxIncorrectGuessCount = this.gameService.maxIncorrectGuessCount;
   }
-}
-
-export function alreadyUsedValidator(hangman: Hangman): ValidatorFn {
-  return (control: AbstractControl): { [key: string]: any } | null => {
-    if (hangman) {
-      const alreadyUsed = hangman.incorrectLetters.includes(control.value) || hangman.correctLetters.includes(control.value);
-      return alreadyUsed ? { alreadyUsed: { value: true } } : null;
-    } else {
-      return null;
-    }
-  };
 }
