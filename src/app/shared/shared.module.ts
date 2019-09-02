@@ -10,7 +10,6 @@ import { MatListModule } from '@angular/material/list';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { HttpClientModule } from '@angular/common/http';
 import { TranslateModule } from '@ngx-translate/core';
-import { ProfileComponent } from '../user/components/profile/profile.component';
 
 // The SharedModule should not have providers. Since lazy loaded modules use a different injector from the rest of the application.
 // Then we could end up with 2 different instances of the same Service.
