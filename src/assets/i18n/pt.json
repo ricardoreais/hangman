@@ -15,5 +15,6 @@
 	"register": "Começar um novo jogo",
 	"correct_guesses": "Tentativas corretas: ",
 	"incorrect_guesses": "Tentativas incorretas: ",
-	"loading": "A carregar..."
+	"loading": "A carregar...",
+	"already_used_letter": "Você já usou essa!"
 }

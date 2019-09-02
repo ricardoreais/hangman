@@ -1,14 +1,16 @@
-<div fxLayout="column" *ngIf="hangman$ | async as hangman; else loading">
+<div fxLayout="column" *ngIf="hangman">
     <h2>{{ 'current_highscore' | translate }}{{ currentHighscore$ | async }}</h2>
     <h3>{{ 'correct_guesses' | translate }}{{ hangman.correctLetters.length }}</h3>
     <h3>{{ 'incorrect_guesses' | translate }}{{ hangman.incorrectLetters.length }}/{{ maxIncorrectGuessCount }}</h3>
-    <p>Goal: {{ hangman.word }}</p>
     <div class="game">
         <h1>{{ hangman.wordGuess }}</h1>
         <div fxLayout="column" *ngIf="!hangman.gameState.gameOver; else gameOver">
             <mat-form-field fxFlex>
                 <input matInput type="text" placeholder="{{ 'enter_your_letter_guess' | translate }}" [formControl]="letterGuessControl" maxlength="1" autocomplete="off">
-                <mat-error *ngIf="letterGuessControl.invalid">{{ 'invalid_guess' | translate }}</mat-error>
+                <mat-error *ngIf="letterGuessControl.errors">
+                    <span *ngIf="letterGuessControl.errors.pattern">{{ 'invalid_guess' | translate }}</span>
+                    <span *ngIf="letterGuessControl.errors.alreadyUsed">{{ 'already_used_letter' | translate }}</span>
+                </mat-error>
             </mat-form-field>
             <div fxFlex fxLayoutGap="10px">
                 <button mat-raised-button (click)="guess()" [disabled]="letterGuessControl.invalid || hangman.gameState.gameOver">{{ 'guess' | translate }}</button>
@@ -24,6 +26,3 @@
         </ng-template>
     </div>
 </div>
-<ng-template #loading>
-    <h1>{{ 'loading' | translate }}</h1>
-</ng-template>

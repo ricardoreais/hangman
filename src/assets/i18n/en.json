@@ -15,5 +15,6 @@
 	"register": "Start a new game",
 	"correct_guesses": "Correct guesses: ",
 	"incorrect_guesses": "Incorrect guesses: ",
-	"loading": "Loading..."
+	"loading": "Loading...",
+	"already_used_letter": "You've already used that letter!"
 }

@@ -9,10 +9,10 @@ import { UserService } from 'src/app/shared/services/user.service';
   providedIn: 'root'
 })
 export class GameService {
-  emptyChar = environment.emptyChar;
-  maxIncorrectGuessCount = environment.maxIncorrectGuessCount;
   hangman$ = new BehaviorSubject<Hangman>(undefined);
   currentHighscore$ = new BehaviorSubject<number>(0);
+  maxIncorrectGuessCount = environment.maxIncorrectGuessCount;
+  private emptyChar = environment.emptyChar;
   private currentHighscore = 0;
   private hangman: Hangman;
 
@@ -59,7 +59,7 @@ export class GameService {
       this.hangman.incorrectLetters.push(letterGuess);
     }
 
-    // If we've guessed all the letters return the "normal" word without spaces in between each letter.
+    // If we've guessed all the letters return the "normal" word without spaces in between each letter. Else return our guess.
     if (!hasRemainingLetters) {
       this.hangman.wordGuess = this.hangman.word;
     } else {
