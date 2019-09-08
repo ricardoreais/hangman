@@ -19,10 +19,11 @@ export class GameService {
   constructor(private readonly wordService: WordService, private userService: UserService) {}
 
   public startGame(): void {
-    const randomWord = this.wordService.getRandomWord();
-    this.hangman = new Hangman(randomWord);
-    // Initially we try to guess the word without passing any guessed letter in order to get the word template.
-    this.guess();
+    this.wordService.getRandomWord().subscribe(randomWord => {
+      this.hangman = new Hangman(randomWord);
+      // Initially we try to guess the word without passing any guessed letter in order to get the word template.
+      this.guess();
+    });
   }
 
   public guess(letterGuess?: string): void {

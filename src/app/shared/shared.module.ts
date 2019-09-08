@@ -11,6 +11,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { HttpClientModule } from '@angular/common/http';
 import { TranslateModule } from '@ngx-translate/core';
 import { ErrorComponent } from './components/error/error.component';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from 'src/environments/environment';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 // The SharedModule should not have providers. Since lazy loaded modules use a different injector from the rest of the application.
 // Then we could end up with 2 different instances of the same Service.
@@ -20,7 +23,8 @@ import { ErrorComponent } from './components/error/error.component';
   ],
   imports: [
     CommonModule,
-    TranslateModule
+    TranslateModule,
+    AngularFireModule.initializeApp(environment.firebase),
   ],
   exports: [
     CommonModule,
@@ -37,7 +41,10 @@ import { ErrorComponent } from './components/error/error.component';
     MatSidenavModule,
     MatListModule,
     // Components.
-    ErrorComponent
+    ErrorComponent,
+    // Firebase.
+    AngularFireModule,
+    AngularFirestoreModule
   ]
 })
 export class SharedModule { }
