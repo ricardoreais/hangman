@@ -9,12 +9,12 @@ import { UserService } from 'src/app/shared/services/user.service';
   providedIn: 'root'
 })
 export class GameService {
-  hangman$ = new BehaviorSubject<Hangman>(undefined);
+  hangman$ = new BehaviorSubject<Hangman | undefined>(undefined);
   currentHighscore$ = new BehaviorSubject<number>(0);
   maxIncorrectGuessCount = environment.maxIncorrectGuessCount;
   private emptyChar = environment.emptyChar;
   private currentHighscore = 0;
-  private hangman: Hangman;
+  private hangman!: Hangman;
 
   constructor(private readonly wordService: WordService, private userService: UserService) {}
 
