@@ -3,6 +3,7 @@ import { UserService } from './shared/services/user.service';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
+  standalone: false,
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
@@ -25,6 +26,6 @@ export class AppComponent implements OnInit {
       this.userService.update(user);
     }
     this.translate.use(language);
-    this.translate.setDefaultLang(language);
+    this.translate.setFallbackLang(language);
   }
 }

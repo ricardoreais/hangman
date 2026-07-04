@@ -2,7 +2,7 @@ import { GameState } from './game-state.model';
 
 export class Hangman {
     word: string;
-    wordGuess: string;
+    wordGuess: string = '';
     correctLetters: string[];
     incorrectLetters: string[];
     gameState: GameState;

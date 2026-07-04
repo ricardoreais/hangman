@@ -8,14 +8,15 @@ import { alreadyUsedValidator } from '../../validators/already-used.validator';
 
 
 @Component({
+  standalone: false,
   selector: 'app-game-widget',
   templateUrl: './game-widget.component.html',
   styleUrls: ['./game-widget.component.scss']
 })
 export class GameWidgetComponent implements OnInit, OnDestroy {
-  hangman: Hangman;
-  currentHighscore$: BehaviorSubject<number>;
-  maxIncorrectGuessCount: number;
+  hangman!: Hangman;
+  currentHighscore$!: BehaviorSubject<number>;
+  maxIncorrectGuessCount!: number;
   letterGuessControl = new FormControl('');
   destroy$ = new Subject<void>();
 
@@ -25,8 +26,8 @@ export class GameWidgetComponent implements OnInit, OnDestroy {
     this.gameService.hangman$
     // Let the hangman$ stream live until the destroy$ Subject gets a value.
     .pipe(takeUntil(this.destroy$))
-    .subscribe((hangman: Hangman) => {
-      this.hangman = hangman;
+    .subscribe((hangman: Hangman | undefined) => {
+      this.hangman = hangman!;
       // When the hangman is updated, we have new letters that have been guessed by the user and we have to dinamically set a validator.
       // In order to make sure the user does not introduce them again
       this.letterGuessControl.setValidators([
@@ -46,7 +47,7 @@ export class GameWidgetComponent implements OnInit, OnDestroy {
   }
 
   public guess() {
-    const letterGuess = this.letterGuessControl.value;
+    const letterGuess = this.letterGuessControl.value ?? '';
     this.gameService.guess(letterGuess);
     // Reset the user input.
     this.letterGuessControl.reset();

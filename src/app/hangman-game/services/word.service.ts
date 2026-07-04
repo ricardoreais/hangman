@@ -1,36 +1,92 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { Observable, from } from 'rxjs';
-import { Word } from 'src/app/shared/models/word.model';
-import { firestore } from 'firebase';
-import { map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WordService {
-  public word: Observable<Word>;
-  private wordsCollection: firestore.CollectionReference;
-
-  constructor(private db: AngularFirestore) {
-    this.wordsCollection = this.db.collection<Word>('words').ref;
-  }
+  private words = [
+    'ability', 'able', 'aboard', 'about', 'above', 'accept', 'accident', 'according',
+    'account', 'accurate', 'acres', 'across', 'act', 'action', 'active', 'activity',
+    'actual', 'actually', 'address', 'admit', 'adult', 'advance', 'advice', 'affect',
+    'afford', 'afraid', 'after', 'afternoon', 'again', 'against', 'age', 'agency',
+    'agent', 'ago', 'agree', 'ahead', 'aid', 'aim', 'air', 'airport', 'alive',
+    'allow', 'almost', 'alone', 'along', 'amount', 'anger', 'angle', 'angry',
+    'animal', 'announce', 'annual', 'answer', 'anxiety', 'any', 'apart', 'appeal',
+    'appear', 'apple', 'apply', 'approach', 'area', 'argue', 'arise', 'arrange',
+    'article', 'artist', 'aside', 'aspect', 'assault', 'assert', 'assess', 'assign',
+    'assist', 'assume', 'assure', 'attach', 'attack', 'attempt', 'attend', 'attract',
+    'author', 'avalanche', 'avenue', 'average', 'award', 'aware', 'baby', 'back',
+    'background', 'balance', 'balloon', 'banana', 'bank', 'bargain', 'barrel', 'basket',
+    'battle', 'beach', 'beautiful', 'become', 'before', 'begin', 'behavior', 'behind',
+    'believe', 'below', 'beneath', 'benefit', 'beside', 'between', 'bicycle', 'billion',
+    'blanket', 'blazing', 'blessing', 'bottle', 'bracket', 'brevity', 'bridge', 'brilliant',
+    'browser', 'bubble', 'budget', 'buffalo', 'building', 'bulletin', 'bundle', 'cabinet',
+    'camera', 'campaign', 'candle', 'capital', 'capture', 'careful', 'carrier', 'caution',
+    'ceiling', 'central', 'century', 'chamber', 'channel', 'chapter', 'charity', 'charter',
+    'chestnut', 'chicken', 'chuckle', 'circuit', 'citizen', 'civilian', 'climate', 'cluster',
+    'coastal', 'collect', 'college', 'combine', 'comfort', 'command', 'comment', 'compact',
+    'company', 'compare', 'compete', 'complex', 'compose', 'concept', 'concern', 'conduct',
+    'confirm', 'congress', 'connect', 'consent', 'consist', 'consult', 'contact', 'contain',
+    'contest', 'context', 'control', 'convert', 'correct', 'council', 'counter', 'country',
+    'courage', 'creator', 'cricket', 'criminal', 'crystal', 'culture', 'current', 'custom',
+    'cycling', 'damage', 'danger', 'dazzle', 'debate', 'decade', 'decide', 'declare',
+    'decline', 'defense', 'deficit', 'deliver', 'density', 'deposit', 'despite', 'destiny',
+    'detail', 'detect', 'device', 'devote', 'diamond', 'digital', 'dilemma', 'dimension',
+    'diploma', 'disable', 'discuss', 'disease', 'display', 'dispute', 'distant', 'district',
+    'diverse', 'division', 'doctrine', 'dolphin', 'dominant', 'donation', 'dragon', 'dramatic',
+    'drawing', 'drizzle', 'dynamic', 'eastern', 'economy', 'edition', 'educate', 'elderly',
+    'elected', 'element', 'embrace', 'emotion', 'emperor', 'enforce', 'engaged', 'enhance',
+    'enormous', 'episode', 'equally', 'escalate', 'essence', 'estate', 'eternal', 'ethical',
+    'evident', 'evolve', 'examine', 'example', 'excited', 'exclude', 'execute', 'exempt',
+    'exhaust', 'exhibit', 'expense', 'explain', 'explore', 'express', 'extract', 'extreme',
+    'factory', 'faculty', 'failure', 'fashion', 'feature', 'federal', 'festival', 'fiction',
+    'fifteen', 'finance', 'finding', 'fishing', 'fitness', 'flaming', 'flexible', 'flicker',
+    'floating', 'flourish', 'flower', 'folding', 'football', 'foreign', 'forever', 'formula',
+    'fortune', 'forward', 'fossil', 'fragile', 'freedom', 'freezer', 'frequent', 'friction',
+    'friendly', 'frozen', 'fulfill', 'further', 'gadgets', 'gallery', 'gateway', 'general',
+    'genetic', 'genuine', 'gesture', 'glacier', 'glasses', 'glimpse', 'glitter', 'gondola',
+    'goodbye', 'gossip', 'govern', 'grammar', 'graphic', 'gravity', 'greater', 'grocery',
+    'growing', 'guarantee', 'guidance', 'guitar', 'habitat', 'halfway', 'handful', 'handler',
+    'hanging', 'haphazard', 'harbor', 'harmony', 'harvest', 'hazard', 'headline', 'healthy',
+    'hearing', 'heaven', 'heavily', 'helpful', 'herself', 'himself', 'history', 'hobbies',
+    'holiday', 'horizon', 'hostile', 'housing', 'however', 'hundred', 'hunting', 'hustle',
+    'hydrogen', 'iceberg', 'ignorant', 'illegal', 'illusion', 'imagine', 'immense', 'immoral',
+    'import', 'impose', 'impress', 'improve', 'include', 'incomes', 'increase', 'indeed',
+    'indicate', 'industry', 'inherit', 'initial', 'inquiry', 'insight', 'inspect', 'install',
+    'instant', 'instead', 'intense', 'intrude', 'invader', 'invent', 'invest', 'invite',
+    'involve', 'island', 'itself', 'jackpot', 'jargon', 'jealous', 'journal', 'journey',
+    'jungle', 'justice', 'justify', 'juvenile', 'keepers', 'kitchen', 'knitted', 'knotty',
+    'labeling', 'landing', 'landlord', 'language', 'largest', 'lasting', 'laundry', 'leading',
+    'leather', 'leaving', 'lending', 'lengthy', 'liberal', 'liberty', 'library', 'limited',
+    'listing', 'literal', 'logical', 'lottery', 'loyalty', 'luggage', 'luminous', 'machine',
+    'magazine', 'magnetic', 'mailbox', 'primary', 'printer', 'privacy', 'problem', 'proceed',
+    'process', 'produce', 'project', 'promise', 'promote', 'protect', 'protein', 'protest',
+    'provide', 'publish', 'purpose', 'pursuit', 'quality', 'quarter', 'quickly', 'radiant',
+    'rainbow', 'reality', 'receipt', 'reclaim', 'recover', 'recycle', 'reflect', 'reform',
+    'refugee', 'regular', 'related', 'release', 'relieve', 'remains', 'removal', 'replace',
+    'request', 'reserve', 'resolve', 'respect', 'respons', 'restore', 'retreat', 'revenue',
+    'reverse', 'revival', 'routine', 'satisfy', 'scanner', 'scatter', 'scented', 'scholar',
+    'science', 'scorching', 'scratch', 'section', 'segment', 'senator', 'service', 'session',
+    'setting', 'seventh', 'shelter', 'sheriff', 'shortly', 'silence', 'sincere', 'skilled',
+    'society', 'soldier', 'solemn', 'solving', 'somehow', 'source', 'sparkle', 'speaker',
+    'special', 'sponsor', 'station', 'storage', 'strange', 'strength', 'stretch', 'student',
+    'subject', 'succeed', 'suggest', 'summary', 'supreme', 'surface', 'surgery', 'surplus',
+    'survive', 'suspect', 'suspend', 'sustain', 'teacher', 'temple', 'terrace', 'texture',
+    'theater', 'therapy', 'tobacco', 'tonight', 'tornado', 'torture', 'tourist', 'tragedy',
+    'trailer', 'traitor', 'transfer', 'trash', 'treasure', 'treaty', 'triumph', 'tropical',
+    'trouble', 'trusted', 'tunnel', 'typical', 'ugliest', 'umbrella', 'unable', 'unarmed',
+    'uncover', 'undergo', 'unfair', 'unified', 'uniform', 'uniquely', 'universe', 'unknown',
+    'unusual', 'update', 'upgrade', 'useful', 'utility', 'vaccine', 'varying', 'vaulted',
+    'vehicle', 'venture', 'version', 'veteran', 'vibrant', 'victory', 'village', 'vintage',
+    'violent', 'visible', 'volcano', 'voltage', 'warrant', 'warrior', 'weather', 'website',
+    'welcome', 'welfare', 'western', 'whether', 'whisper', 'willing', 'winning', 'winter',
+    'witness', 'working', 'worship', 'wounded', 'wrapper', 'writing', 'yellow', 'yourself',
+    'youthful', 'zealous', 'zenith', 'zephyr', 'zombie'
+  ];
 
   public getRandomWord(): Observable<string> {
-    const random = this.db.createId();
-    return from(
-      this.wordsCollection
-        .where(firestore.FieldPath.documentId(), '>=', random)
-        .orderBy(firestore.FieldPath.documentId())
-        .limit(1)
-        .get()
-    ).pipe(
-      map(snapshot => {
-        if (snapshot.size > 0) {
-          const word = snapshot.docs[0];
-          return word.data().value;
-        }
-      })
-    );
+    const index = Math.floor(Math.random() * this.words.length);
+    return of(this.words[index]);
   }
 }

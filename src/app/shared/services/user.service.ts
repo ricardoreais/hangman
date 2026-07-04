@@ -9,7 +9,8 @@ export class UserService {
   private currentUser: User;
 
   constructor() {
-    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const stored = localStorage.getItem('currentUser');
+    this.currentUser = stored ? JSON.parse(stored) : null;
   }
 
   get IsLogged() {
